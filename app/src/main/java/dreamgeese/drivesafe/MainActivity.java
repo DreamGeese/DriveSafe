@@ -21,6 +21,8 @@ import android.view.View;
 
 import net.openspatial.OpenSpatialService;
 
+import java.io.IOException;
+
 public class MainActivity extends ActionBarActivity {
     OpenSpatialController OpenSpatialController=new OpenSpatialController(); //manages the connection to the nod ring
     private AudioManager myAudioManager;//for controlling the audio
@@ -40,6 +42,8 @@ public class MainActivity extends ActionBarActivity {
         //for bluetooth connection stuff
         BluetoothController mBluetoothController=new BluetoothController();
         mBluetoothController.checkBluetoothStatus(this); //informs the user if their bluetooth is turned off
+
+
     }
 
     @Override
@@ -78,12 +82,31 @@ public class MainActivity extends ActionBarActivity {
         myAudioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
     }
 
-//    public void pause (View view) {
-//        Intent buttonDown = new Intent(Intent.ACTION_MEDIA_BUTTON);
-//        buttonDown.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(
-//                KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_HEADSETHOOK));
-//        sendOrderedBroadcast(buttonDown, "android.permission.CALL_PRIVILEGED");
-//    }
+    public void recieve (View view) {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Runtime.getRuntime().exec("input keyevent " +
+                            Integer.toString(KeyEvent.KEYCODE_HEADSETHOOK));
+                } catch (IOException e) {
+                    // Runtime.exec(String) had an I/O problem, try to fall back
+                    String enforcedPerm = "android.permission.CALL_PRIVILEGED";
+                    Intent btnDown = new Intent(Intent.ACTION_MEDIA_BUTTON).putExtra(
+                            Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_DOWN,
+                                    KeyEvent.KEYCODE_HEADSETHOOK));
+                    Intent btnUp = new Intent(Intent.ACTION_MEDIA_BUTTON).putExtra(
+                            Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP,
+                                    KeyEvent.KEYCODE_HEADSETHOOK));
+
+                    sendOrderedBroadcast(btnDown, enforcedPerm);
+                    sendOrderedBroadcast(btnUp, enforcedPerm);
+                }
+            }
+
+        }).start();
+    }
 
     public void call (View view) {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
