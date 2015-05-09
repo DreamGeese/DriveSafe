@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import net.openspatial.ButtonEvent;
@@ -54,15 +55,18 @@ public class OpenSpatialController {
                             mOpenSpatialService.registerForButtonEvents(bluetoothDevice, new OpenSpatialEvent.EventListener() {
                                 @Override
                                 public void onEventReceived(OpenSpatialEvent event) { //when a new button event has been received
-                                    ButtonEvent bEvent = (ButtonEvent)event;
+                                    ButtonEvent bEvent = (ButtonEvent) event;
                                     handleTouchEvent(bEvent); //handles the button events
-                                    Log.e(NAME,bEvent.buttonEventType+"");
+                                    Log.e(NAME, bEvent.buttonEventType + "");
                                 }
                             });
 
                             //sets the connection status to connected
                             final TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
                             connection_status.setText("Connected");
+
+                            final Button connection_button = (Button)currentActivity.findViewById(R.id.connection_button);
+                            connection_button.setText("Disconnect");
 
 
                         } catch (OpenSpatialException e) {
@@ -111,6 +115,10 @@ public class OpenSpatialController {
     }//end of constructor
 
     private void handleGestureEvent(GestureEvent gEvent){
+        //outputs the result to the activity so the user can see what gesture he/she is making
+        final TextView detected_gesture = (TextView)currentActivity.findViewById(R.id.detected_gesture);
+        detected_gesture.setText(gEvent.gestureEventType.name());
+
         if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_UP){ //for some reason a swipe down is recognized as a swipe app
             volumeController.raiseVolume();
         }
@@ -139,7 +147,6 @@ public class OpenSpatialController {
         }
         if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TACTILE1_UP){
             callController.callNumber(currentActivity);
-            Log.e("DRIVESAFEDEBYUG!!!!", "CALLING!");
         }
     }
 
