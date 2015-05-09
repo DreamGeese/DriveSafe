@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.TextView;
 
 import net.openspatial.ButtonEvent;
 import net.openspatial.GestureEvent;
@@ -58,8 +59,16 @@ public class OpenSpatialController {
                                     Log.e(NAME,bEvent.buttonEventType+"");
                                 }
                             });
+
+                            //sets the connection status to connected
+                            final TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
+                            connection_status.setText("Connected");
+
+
                         } catch (OpenSpatialException e) {
                             Log.e(NAME, "Could Not Register for Gesture Events" + e);
+                            final TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
+                            connection_status.setText("Not Connected");
                         }
                     }
 
@@ -70,6 +79,8 @@ public class OpenSpatialController {
 
                     @Override
                     public void deviceDisconnected(BluetoothDevice bluetoothDevice) {
+                        final TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
+                        connection_status.setText("Not Connected");
                     }
 
                     @Override
@@ -93,6 +104,8 @@ public class OpenSpatialController {
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 mOpenSpatialService = null;
+                final TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
+                connection_status.setText("Not Connected");
             }
         };
     }//end of constructor
