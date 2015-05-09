@@ -14,4 +14,25 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="plus"
+            android:text="+"
+            android:id="@+id/button"
+            android:layout_below="@+id/background_service_status"
+            android:layout_alignLeft="@+id/background_service_status"
+            android:layout_alignStart="@+id/background_service_status"
+            android:layout_marginTop="39dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="minus"
+            android:text="-"
+            android:layout_below="@+id/button"
+            android:layout_alignRight="@+id/background_service_status"
+            android:layout_alignEnd="@+id/background_service_status" />
 </RelativeLayout>

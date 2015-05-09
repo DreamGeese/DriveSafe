@@ -7,15 +7,20 @@ Github: https://github.com/DreamGeese/DriveSafe
 
 package dreamgeese.drivesafe;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import net.openspatial.*;
+import android.view.View;
+
+import net.openspatial.OpenSpatialService;
 
 public class MainActivity extends ActionBarActivity {
     OpenSpatialController OpenSpatialController=new OpenSpatialController(); //manages the connection to the nod ring
+    private AudioManager myAudioManager;//for controlling the audio
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,10 @@ public class MainActivity extends ActionBarActivity {
 
         //creates a service that talks with the nod ring
         bindService(new Intent(this, OpenSpatialService.class), OpenSpatialController.getServiceConnection(), BIND_AUTO_CREATE);
+
+        //for setting the volume
+        myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         //for bluetooth connection stuff
         BluetoothController mBluetoothController=new BluetoothController();
@@ -58,4 +67,11 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void plus (View view) {
+        myAudioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+    }
+
+    public void minus (View view) {
+        myAudioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+    }
 }
