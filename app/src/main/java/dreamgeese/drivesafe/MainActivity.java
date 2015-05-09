@@ -1,21 +1,23 @@
+/*DriveSafe
+Making driving safer with the Nod Ring
+Created by Serge Babayan and Steven Li during Wearhacks Toronto 2015
+LICENCE: MIT
+Github: https://github.com/DreamGeese/DriveSafe
+ */
+
 package dreamgeese.drivesafe;
 
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import net.openspatial.*;
-import android.support.v4.media.session.MediaControllerCompat;
-
 
 public class MainActivity extends ActionBarActivity {
     public static final String TAG = "DriveSafe";
@@ -26,18 +28,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         bindService(new Intent(this, OpenSpatialService.class), mOpenSpatialServiceConnection, BIND_AUTO_CREATE);
 
-        //Asks the user to turn on bluetooth if it's off
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
-            // Device does not support Bluetooth
-        }
-        else if (!mBluetoothAdapter.isEnabled()){
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            final int  REQUEST_ENABLE_BT=1;
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
-
-
+        BluetoothController mBluetoothController=new BluetoothController();
+        mBluetoothController.checkBluetoothStatus(this);
     }
 
     @Override
@@ -46,44 +38,34 @@ public class MainActivity extends ActionBarActivity {
         unbindService(mOpenSpatialServiceConnection);
     }
 
-    public void UpdateAngle(String ring, EulerAngle angle) {
-        String logline = ring + " " + Double.toString(angle.roll)
-                + " " + Double.toString(angle.pitch)
-                + " " + Double.toString(angle.yaw);
-        Log.d(TAG, logline);
-    }
-
+    //Creates a background service that listens for events in the nod ring
     private ServiceConnection mOpenSpatialServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mOpenSpatialService = ((OpenSpatialService.OpenSpatialServiceBinder)service).getService();
-            // CODE FROM STEP FIVE GOES HERE
-
             mOpenSpatialService.getConnectedDevices();
+
             mOpenSpatialService.initialize(TAG, new OpenSpatialService.OpenSpatialServiceCallback() {
+                //when a connection has been made to the nod ring
                 @Override
                 public void deviceConnected(final BluetoothDevice bluetoothDevice) {
                     try {
-//                        mOpenSpatialService.registerForPose6DEvents(bluetoothDevice, new OpenSpatialEvent.EventListener() {
-//                            @Override
-//                            public void onEventReceived(OpenSpatialEvent openSpatialEvent) {
-//                                String ringname = bluetoothDevice.getName();
-//                                Pose6DEvent event = (Pose6DEvent) openSpatialEvent;
-//                                EulerAngle angle = event.getEulerAngle();
-//                                UpdateAngle(ringname, angle);
-//                            }
-//                        });
+                        //capture all gesture events
                         mOpenSpatialService.registerForGestureEvents(bluetoothDevice, new OpenSpatialEvent.EventListener() {
                             @Override
-                            public void onEventReceived(OpenSpatialEvent event) {
+                            public void onEventReceived(OpenSpatialEvent event) { //when a new gesture event has been received
                                 GestureEvent gEvent = (GestureEvent) event;
-                                Log.d(TAG, "a gesture event received!");
-                                Log.d(TAG, gEvent.gestureEventType+"");
+                                Log.d(TAG, gEvent.gestureEventType+""); //DO STUFF WITH THE EVENT HERE
                             }
                         });
                     } catch (OpenSpatialException e) {
-                        Log.e(TAG, "Could not register for Pose6D event " + e);
+                        Log.e(TAG, "Could Not Register for Gesture Events" + e);
                     }
+                }
+
+                @Override
+                public void gestureEventRegistrationResult(BluetoothDevice bluetoothDevice, int i) {
+                    Log.d(TAG, "Gesture Event Registration Result: "+i);
                 }
 
                 @Override
@@ -103,16 +85,9 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 @Override
-                public void gestureEventRegistrationResult(BluetoothDevice bluetoothDevice, int i) {
-                    Log.d(TAG, i+"");
-                }
-
-                @Override
                 public void motion6DEventRegistrationResult(BluetoothDevice bluetoothDevice, int i) {
                 }
             });
-
-
         }
 
         @Override
@@ -120,7 +95,6 @@ public class MainActivity extends ActionBarActivity {
             mOpenSpatialService = null;
         }
     };
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
