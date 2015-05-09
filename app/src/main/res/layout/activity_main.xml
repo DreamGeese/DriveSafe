@@ -22,6 +22,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/connection_status_header"
         android:id="@+id/connection_status_header"
+        android:layout_marginTop="44dp"
         android:layout_below="@+id/welcome_header"
         android:layout_centerHorizontal="true" />
 
@@ -31,18 +32,18 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/connection_status"
         android:id="@+id/connection_status"
-        android:layout_marginTop="25dp"
+        style="@style/Base.TextAppearance.AppCompat.Display2"
         android:layout_below="@+id/connection_status_header"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="200px"
         android:text="@string/connection_button"
         android:id="@+id/connection_button"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/connection_status"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="80px" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,9 +51,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/detected_gesture_header"
         android:id="@+id/detected_gesture_header"
-        android:layout_marginTop="46dp"
-        android:layout_below="@+id/connection_button"
-        android:layout_alignStart="@+id/connection_status_header" />
+        android:layout_above="@+id/detected_gesture"
+        android:layout_alignEnd="@+id/connection_status_header" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,8 +60,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/detected_gesture"
         android:id="@+id/detected_gesture"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/detected_gesture_header"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="26dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        style="@style/Base.TextAppearance.AppCompat.Display1"
+        android:textStyle="bold" />
 
 </RelativeLayout>
