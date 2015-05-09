@@ -3,9 +3,7 @@ package dreamgeese.drivesafe;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,12 +24,6 @@ public class VolumeController {
 
     public void lowerVolume () {
         mAudioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
-    }
-
-    public void callNumber (int phoneNumber) {
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:"+phoneNumber));
-        currentActivity.startActivity(callIntent);
     }
 
     public void toggleMusic () {

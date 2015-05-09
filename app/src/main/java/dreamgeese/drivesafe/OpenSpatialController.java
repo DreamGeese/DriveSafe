@@ -1,5 +1,6 @@
 package dreamgeese.drivesafe;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
@@ -20,9 +21,15 @@ public class OpenSpatialController {
     private ServiceConnection mOpenSpatialServiceConnection;
     private OpenSpatialService mOpenSpatialService;
     private VolumeController volumeController;
+    private CallController callController;
+    private Activity currentActivity;
 
-    public OpenSpatialController(VolumeController volumeCtrl){
+
+    public OpenSpatialController(Activity currActivity,VolumeController volumeCtrl,CallController callCtrl){
+        currentActivity=currActivity;
         volumeController=volumeCtrl;
+        callController=callCtrl;
+
         //Creates a background service that listens for events in the nod ring
           mOpenSpatialServiceConnection = new ServiceConnection() {
             @Override
@@ -114,8 +121,15 @@ public class OpenSpatialController {
         }
     }
     public void handleTouchEvent(ButtonEvent bEvent){
-        if(bEvent.buttonEventType.equals("TOUCH2_DOWN")){
-
+        if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TOUCH2_UP){
+            callController.acceptCall(currentActivity);
+        }
+        if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TACTILE0_UP){
+            callController.rejectCall(currentActivity);
+        }
+        if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TACTILE1_UP){
+            callController.callNumber(currentActivity);
+            Log.e("DRIVESAFEDEBYUG!!!!", "CALLING!");
         }
     }
 
