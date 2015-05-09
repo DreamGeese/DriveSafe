@@ -5,11 +5,15 @@ import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Button;
 
+import net.openspatial.ButtonEvent;
 import net.openspatial.GestureEvent;
 import net.openspatial.OpenSpatialEvent;
 import net.openspatial.OpenSpatialException;
+import net.openspatial.OpenSpatialPointerEvent;
 import net.openspatial.OpenSpatialService;
+import net.openspatial.PointerEvent;
 
 public class OpenSpatialController {
     private static final String NAME = "DriveSafe";
@@ -37,7 +41,17 @@ public class OpenSpatialController {
                                 public void onEventReceived(OpenSpatialEvent event) { //when a new gesture event has been received
                                     GestureEvent gEvent = (GestureEvent) event;
                                     handleGestureEvent(gEvent); //handles the gesture events
-                                    Log.d(NAME, gEvent.gestureEventType + ""); //DO STUFF WITH THE EVENT HERE
+                                    Log.d(NAME, gEvent.gestureEventType + "");
+                                }
+                            });
+
+                            //capture all gesture events
+                            mOpenSpatialService.registerForButtonEvents(bluetoothDevice, new OpenSpatialEvent.EventListener() {
+                                @Override
+                                public void onEventReceived(OpenSpatialEvent event) { //when a new button event has been received
+                                    ButtonEvent bEvent = (ButtonEvent)event;
+                                    handleTouchEvent(bEvent); //handles the button events
+                                    Log.e(NAME,bEvent.buttonEventType+"");
                                 }
                             });
                         } catch (OpenSpatialException e) {
@@ -80,11 +94,28 @@ public class OpenSpatialController {
     }//end of constructor
 
     private void handleGestureEvent(GestureEvent gEvent){
-        if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_UP){
+        if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_UP){ //for some reason a swipe down is recognized as a swipe app
             volumeController.raiseVolume();
         }
         else if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_DOWN){
             volumeController.lowerVolume();
+        }
+        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.CLOCKWISE_ROTATION){
+                volumeController.playMusic();
+        }
+        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.COUNTERCLOCKWISE_ROTATION){
+                volumeController.pauseMusic();
+        }
+        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_RIGHT){
+            volumeController.nextSong();
+        }
+        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_LEFT){
+            volumeController.previousSong();
+        }
+    }
+    public void handleTouchEvent(ButtonEvent bEvent){
+        if(bEvent.buttonEventType.equals("TOUCH2_DOWN")){
+
         }
     }
 

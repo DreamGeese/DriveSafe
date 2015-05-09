@@ -3,24 +3,95 @@ package dreamgeese.drivesafe;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
-import android.view.View;
+import android.net.Uri;
+import android.os.SystemClock;
+import android.util.Log;
+import android.view.KeyEvent;
 
 public class VolumeController {
-    private AudioManager myAudioManager;
+    private AudioManager mAudioManager;
     private Activity currentActivity;
 
     public VolumeController(Activity currActivity){
         currentActivity=currActivity;
-        myAudioManager = (AudioManager)currentActivity.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager)currentActivity.getSystemService(Context.AUDIO_SERVICE);
         currentActivity.setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     public void raiseVolume () {
-        myAudioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+        mAudioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
     }
 
     public void lowerVolume () {
-        myAudioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+        mAudioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+    }
+
+    public void callNumber (int phoneNumber) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:"+phoneNumber));
+        currentActivity.startActivity(callIntent);
+    }
+
+    public void toggleMusic () {
+         Log.e("Media Control", "toggle pause/play");
+
+        long eventtime = SystemClock.uptimeMillis() - 1;
+        KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, 0);
+        mAudioManager.dispatchMediaKeyEvent(downEvent);
+
+        eventtime++;
+        KeyEvent upEvent = new KeyEvent(eventtime,eventtime,KeyEvent.ACTION_UP,KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, 0);
+        mAudioManager.dispatchMediaKeyEvent(upEvent);
+
+    }
+
+    public void playMusic () {
+        Log.e("Media Control", "play");
+
+        long eventtime = SystemClock.uptimeMillis() - 1;
+        KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY, 0);
+        mAudioManager.dispatchMediaKeyEvent(downEvent);
+
+        eventtime++;
+        KeyEvent upEvent = new KeyEvent(eventtime,eventtime,KeyEvent.ACTION_UP,KeyEvent.KEYCODE_MEDIA_PLAY, 0);
+        mAudioManager.dispatchMediaKeyEvent(upEvent);
+
+    }
+    public void pauseMusic () {
+        Log.e("Media Control", "pause");
+
+        long eventtime = SystemClock.uptimeMillis() - 1;
+        KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PAUSE,0);
+        mAudioManager.dispatchMediaKeyEvent(downEvent);
+
+        eventtime++;
+        KeyEvent upEvent = new KeyEvent(eventtime,eventtime,KeyEvent.ACTION_UP,KeyEvent.KEYCODE_MEDIA_PAUSE, 0);
+        mAudioManager.dispatchMediaKeyEvent(upEvent);
+
+    }
+    public void nextSong () {
+        Log.e("Media Control", "next");
+
+        long eventtime = SystemClock.uptimeMillis() - 1;
+        KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_NEXT, 0);
+        mAudioManager.dispatchMediaKeyEvent(downEvent);
+
+        eventtime++;
+        KeyEvent upEvent = new KeyEvent(eventtime,eventtime,KeyEvent.ACTION_UP,KeyEvent.KEYCODE_MEDIA_NEXT, 0);
+        mAudioManager.dispatchMediaKeyEvent(upEvent);
+
+    }
+    public void previousSong () {
+        Log.e("Media Control", "previous");
+
+        long eventtime = SystemClock.uptimeMillis() - 1;
+        KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PREVIOUS,0);
+        mAudioManager.dispatchMediaKeyEvent(downEvent);
+
+        eventtime++;
+        KeyEvent upEvent = new KeyEvent(eventtime,eventtime,KeyEvent.ACTION_UP,KeyEvent.KEYCODE_MEDIA_PREVIOUS, 0);
+        mAudioManager.dispatchMediaKeyEvent(upEvent);
     }
 }
