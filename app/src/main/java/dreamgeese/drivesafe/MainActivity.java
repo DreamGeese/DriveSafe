@@ -1,5 +1,6 @@
 package dreamgeese.drivesafe;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -14,7 +15,7 @@ import net.openspatial.*;
 
 
 public class MainActivity extends ActionBarActivity {
-    public static final String TAG = "TargetEuler";
+    public static final String TAG = "DriveSafe";
     OpenSpatialService mOpenSpatialService;
 
     @Override
@@ -22,6 +23,17 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bindService(new Intent(this, OpenSpatialService.class), mOpenSpatialServiceConnection, BIND_AUTO_CREATE);
+
+        //Asks the user to turn on bluetooth if it's off
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // Device does not support Bluetooth
+        }
+        else if (!mBluetoothAdapter.isEnabled()){
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            final int  REQUEST_ENABLE_BT=1;
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
     }
 
     @Override
