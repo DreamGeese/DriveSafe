@@ -91,5 +91,34 @@ public class MainActivity extends ActionBarActivity {
         startActivity(callIntent);
 
     }
+    public void pause (View view) {
+        Log.e("Media Control", "pause");
+        Intent i = new Intent("com.android.music.musicservicecommand");
+        i.putExtra("command", "pause");
+        sendBroadcast(i);
+
+    }
+
+    public void play (View view) {
+        Log.e("play", "play");
+        Intent i = new Intent("com.android.music.musicservicecommand");
+        i.putExtra("command", "play");
+        sendBroadcast(i);
+
+    }
+    public void next (View view) {
+        Log.e("next", "next");
+        Intent i = new Intent("com.android.music.musicservicecommand");
+        i.putExtra("command", "next");
+        sendBroadcast(i);
+
+    }
+    public void previous (View view) {
+        Log.e("next", "previous");
+        Intent i = new Intent("com.android.music.musicservicecommand");
+        i.putExtra("command", "previous");
+        sendBroadcast(i);
+
+    }
 
 }
