@@ -1,43 +1,43 @@
 package dreamgeese.drivesafe;
 
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.AudioManager;
 import android.os.IBinder;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import net.openspatial.*;
-import android.support.v4.media.session.MediaControllerCompat;
 
 
 public class MainActivity extends ActionBarActivity {
-    public static final String TAG = "DriveSafe";
+
+
+    private AudioManager myAudioManager;
+
+
+    public static final String TAG = "TargetEuler";
     OpenSpatialService mOpenSpatialService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bindService(new Intent(this, OpenSpatialService.class), mOpenSpatialServiceConnection, BIND_AUTO_CREATE);
 
-        //Asks the user to turn on bluetooth if it's off
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
-            // Device does not support Bluetooth
-        }
-        else if (!mBluetoothAdapter.isEnabled()){
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            final int  REQUEST_ENABLE_BT=1;
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
-
-
+        myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
     }
 
     @Override
@@ -64,55 +64,38 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void deviceConnected(final BluetoothDevice bluetoothDevice) {
                     try {
-//                        mOpenSpatialService.registerForPose6DEvents(bluetoothDevice, new OpenSpatialEvent.EventListener() {
-//                            @Override
-//                            public void onEventReceived(OpenSpatialEvent openSpatialEvent) {
-//                                String ringname = bluetoothDevice.getName();
-//                                Pose6DEvent event = (Pose6DEvent) openSpatialEvent;
-//                                EulerAngle angle = event.getEulerAngle();
-//                                UpdateAngle(ringname, angle);
-//                            }
-//                        });
-                        mOpenSpatialService.registerForGestureEvents(bluetoothDevice, new OpenSpatialEvent.EventListener() {
+                        mOpenSpatialService.registerForPose6DEvents(bluetoothDevice, new OpenSpatialEvent.EventListener() {
                             @Override
-                            public void onEventReceived(OpenSpatialEvent event) {
-                                GestureEvent gEvent = (GestureEvent) event;
-                                Log.d(TAG, "a gesture event received!");
-                                Log.d(TAG, gEvent.gestureEventType+"");
+                            public void onEventReceived(OpenSpatialEvent openSpatialEvent) {
+                                String ringname = bluetoothDevice.getName();
+                                Pose6DEvent event = (Pose6DEvent)openSpatialEvent;
+                                EulerAngle angle = event.getEulerAngle();
+                                UpdateAngle(ringname, angle);
                             }
                         });
                     } catch (OpenSpatialException e) {
                         Log.e(TAG, "Could not register for Pose6D event " + e);
                     }
                 }
-
                 @Override
                 public void deviceDisconnected(BluetoothDevice bluetoothDevice) {
                 }
-
                 @Override
                 public void buttonEventRegistrationResult(BluetoothDevice bluetoothDevice, int i) {
                 }
-
                 @Override
                 public void pointerEventRegistrationResult(BluetoothDevice bluetoothDevice, int i) {
                 }
-
                 @Override
                 public void pose6DEventRegistrationResult(BluetoothDevice bluetoothDevice, int i) {
                 }
-
                 @Override
                 public void gestureEventRegistrationResult(BluetoothDevice bluetoothDevice, int i) {
-                    Log.d(TAG, i+"");
                 }
-
                 @Override
                 public void motion6DEventRegistrationResult(BluetoothDevice bluetoothDevice, int i) {
                 }
             });
-
-
         }
 
         @Override
@@ -144,4 +127,11 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void plus (View view) {
+        myAudioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+    }
+
+    public void minus (View view) {
+        myAudioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+    }
 }
