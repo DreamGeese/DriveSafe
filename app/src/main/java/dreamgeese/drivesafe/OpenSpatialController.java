@@ -125,7 +125,7 @@ public class OpenSpatialController {
             callController.acceptCall(currentActivity);
         }
         if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TACTILE0_UP){
-            callController.rejectCall(currentActivity);
+            callController.rejectCall();
         }
         if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TACTILE1_UP){
             callController.callNumber(currentActivity);
