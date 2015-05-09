@@ -1,12 +1,10 @@
 package dreamgeese.drivesafe;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 

@@ -6,15 +6,12 @@ import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Button;
 
 import net.openspatial.ButtonEvent;
 import net.openspatial.GestureEvent;
 import net.openspatial.OpenSpatialEvent;
 import net.openspatial.OpenSpatialException;
-import net.openspatial.OpenSpatialPointerEvent;
 import net.openspatial.OpenSpatialService;
-import net.openspatial.PointerEvent;
 
 public class OpenSpatialController {
     private static final String NAME = "DriveSafe";

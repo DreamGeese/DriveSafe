@@ -11,6 +11,8 @@ import android.view.KeyEvent;
 public class VolumeController {
     private AudioManager mAudioManager;
     private Activity currentActivity;
+    private long timeSinceSkip=0;
+    private long timeSinceSkipTimeout=500;//in milliseconds
 
     public VolumeController(Activity currActivity){
         currentActivity=currActivity;
@@ -65,25 +67,26 @@ public class VolumeController {
     }
     public void nextSong () {
         Log.e("Media Control", "next");
+        if(System.currentTimeMillis()-timeSinceSkip>=timeSinceSkipTimeout) {
+            long eventtime = SystemClock.uptimeMillis() - 1;
+            KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_NEXT, 0);
+            mAudioManager.dispatchMediaKeyEvent(downEvent);
 
-        long eventtime = SystemClock.uptimeMillis() - 1;
-        KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_NEXT, 0);
-        mAudioManager.dispatchMediaKeyEvent(downEvent);
-
-        eventtime++;
-        KeyEvent upEvent = new KeyEvent(eventtime,eventtime,KeyEvent.ACTION_UP,KeyEvent.KEYCODE_MEDIA_NEXT, 0);
-        mAudioManager.dispatchMediaKeyEvent(upEvent);
-
+            eventtime++;
+            KeyEvent upEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_NEXT, 0);
+            mAudioManager.dispatchMediaKeyEvent(upEvent);
+        }
     }
     public void previousSong () {
         Log.e("Media Control", "previous");
+        if(System.currentTimeMillis()-timeSinceSkip>=timeSinceSkipTimeout) {
+            long eventtime = SystemClock.uptimeMillis() - 1;
+            KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PREVIOUS, 0);
+            mAudioManager.dispatchMediaKeyEvent(downEvent);
 
-        long eventtime = SystemClock.uptimeMillis() - 1;
-        KeyEvent downEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PREVIOUS,0);
-        mAudioManager.dispatchMediaKeyEvent(downEvent);
-
-        eventtime++;
-        KeyEvent upEvent = new KeyEvent(eventtime,eventtime,KeyEvent.ACTION_UP,KeyEvent.KEYCODE_MEDIA_PREVIOUS, 0);
-        mAudioManager.dispatchMediaKeyEvent(upEvent);
+            eventtime++;
+            KeyEvent upEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PREVIOUS, 0);
+            mAudioManager.dispatchMediaKeyEvent(upEvent);
+        }
     }
 }
