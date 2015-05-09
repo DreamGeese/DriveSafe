@@ -15,8 +15,10 @@ public class OpenSpatialController {
     private static final String NAME = "DriveSafe";
     private ServiceConnection mOpenSpatialServiceConnection;
     private OpenSpatialService mOpenSpatialService;
+    private VolumeController volumeController;
 
-    public OpenSpatialController(){
+    public OpenSpatialController(VolumeController volumeCtrl){
+        volumeController=volumeCtrl;
         //Creates a background service that listens for events in the nod ring
           mOpenSpatialServiceConnection = new ServiceConnection() {
             @Override
@@ -34,6 +36,7 @@ public class OpenSpatialController {
                                 @Override
                                 public void onEventReceived(OpenSpatialEvent event) { //when a new gesture event has been received
                                     GestureEvent gEvent = (GestureEvent) event;
+                                    handleGestureEvent(gEvent); //handles the gesture events
                                     Log.d(NAME, gEvent.gestureEventType + ""); //DO STUFF WITH THE EVENT HERE
                                 }
                             });
@@ -75,6 +78,15 @@ public class OpenSpatialController {
             }
         };
     }//end of constructor
+
+    private void handleGestureEvent(GestureEvent gEvent){
+        if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_UP){
+            volumeController.raiseVolume();
+        }
+        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_DOWN){
+            volumeController.lowerVolume();
+        }
+    }
 
     public ServiceConnection getServiceConnection(){
         return mOpenSpatialServiceConnection;
