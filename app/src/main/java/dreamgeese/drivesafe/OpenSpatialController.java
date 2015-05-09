@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,7 +25,7 @@ public class OpenSpatialController {
     private Activity currentActivity;
 
 
-    public OpenSpatialController(Activity currActivity,VolumeController volumeCtrl,CallController callCtrl){
+    public OpenSpatialController(final Activity currActivity,VolumeController volumeCtrl,CallController callCtrl){
         currentActivity=currActivity;
         volumeController=volumeCtrl;
         callController=callCtrl;
@@ -60,19 +61,11 @@ public class OpenSpatialController {
                                     Log.e(NAME, bEvent.buttonEventType + "");
                                 }
                             });
-
-                            //sets the connection status to connected
-                             TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
-                            connection_status.setText("Connected");
-
-                             Button connection_button = (Button)currentActivity.findViewById(R.id.connection_button);
-                            connection_button.setText("Disconnect");
-
+                            ViewController.setDisplayConnected(currActivity);
 
                         } catch (OpenSpatialException e) {
                             Log.e(NAME, "Could Not Register for Gesture Events" + e);
-                             TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
-                            connection_status.setText("Not Connected");
+                            ViewController.setDisplayDisconnected(currActivity);
                         }
                     }
 
@@ -83,10 +76,7 @@ public class OpenSpatialController {
 
                     @Override
                     public void deviceDisconnected(BluetoothDevice bluetoothDevice) {
-                         TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
-                        connection_status.setText("Not Connected");
-                         Button connection_button = (Button)currentActivity.findViewById(R.id.connection_button);
-                        connection_button.setText("Connect");
+
                     }
 
                     @Override
@@ -110,18 +100,14 @@ public class OpenSpatialController {
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 mOpenSpatialService = null;
-                TextView connection_status = (TextView)currentActivity.findViewById(R.id.connection_status);
-                connection_status.setText("Not Connected");
-                Button connection_button = (Button)currentActivity.findViewById(R.id.connection_button);
-                connection_button.setText("Connect");
+                ViewController.setDisplayDisconnected(currActivity);
             }
         };
     }//end of constructor
 
     private void handleGestureEvent(GestureEvent gEvent){
         //outputs the result to the activity so the user can see what gesture he/she is making
-        TextView detected_gesture = (TextView)currentActivity.findViewById(R.id.detected_gesture);
-        detected_gesture.setText(gEvent.gestureEventType.name());
+        ViewController.showDetectedGestures(currentActivity,gEvent);
 
         if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_UP){ //for some reason a swipe down is recognized as a swipe app
             volumeController.raiseVolume();
