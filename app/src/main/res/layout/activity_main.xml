@@ -35,4 +35,24 @@
             android:layout_below="@+id/button"
             android:layout_alignRight="@+id/background_service_status"
             android:layout_alignEnd="@+id/background_service_status" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="call"
+        android:text="call"
+        android:layout_below="@+id/button"
+        android:layout_alignRight="@+id/background_service_status"
+        android:layout_alignEnd="@+id/background_service_status" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="next"
+        android:text="next"
+        android:layout_below="@+id/button"
+        android:layout_alignRight="@+id/background_service_status"
+        android:layout_alignEnd="@+id/background_service_status" />
 </RelativeLayout>

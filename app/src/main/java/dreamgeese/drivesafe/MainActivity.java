@@ -10,8 +10,11 @@ package dreamgeese.drivesafe;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,4 +77,19 @@ public class MainActivity extends ActionBarActivity {
     public void minus (View view) {
         myAudioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
     }
+
+//    public void pause (View view) {
+//        Intent buttonDown = new Intent(Intent.ACTION_MEDIA_BUTTON);
+//        buttonDown.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(
+//                KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_HEADSETHOOK));
+//        sendOrderedBroadcast(buttonDown, "android.permission.CALL_PRIVILEGED");
+//    }
+
+    public void call (View view) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:5195800179"));
+        startActivity(callIntent);
+
+    }
+
 }
