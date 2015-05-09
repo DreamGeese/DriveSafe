@@ -75,9 +75,10 @@ public class MainActivity extends ActionBarActivity {
 //                        });
                         mOpenSpatialService.registerForGestureEvents(bluetoothDevice, new OpenSpatialEvent.EventListener() {
                             @Override
-                            public void onEventReceived(OpenSpatialEvent openSpatialEvent) {
+                            public void onEventReceived(OpenSpatialEvent event) {
+                                GestureEvent gEvent = (GestureEvent) event;
                                 Log.d(TAG, "a gesture event received!");
-                                Log.d(TAG, openSpatialEvent.eventType.toString()+"");
+                                Log.d(TAG, gEvent.gestureEventType+"");
                             }
                         });
                     } catch (OpenSpatialException e) {
