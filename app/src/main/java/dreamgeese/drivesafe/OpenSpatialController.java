@@ -58,7 +58,7 @@ public class OpenSpatialController {
                                 public void onEventReceived(OpenSpatialEvent event) { //when a new button event has been received
                                     ButtonEvent bEvent = (ButtonEvent) event;
                                     handleTouchEvent(bEvent); //handles the button events
-                                    Log.e(NAME, bEvent.buttonEventType + "");
+                                    Log.d(NAME, bEvent.buttonEventType + "");
                                 }
                             });
                             ViewController.setDisplayConnected(currActivity);
