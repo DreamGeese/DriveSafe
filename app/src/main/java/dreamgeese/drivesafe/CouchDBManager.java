@@ -40,7 +40,7 @@ public class CouchDBManager {
         }
     }
 
-    private Database getDatabase(){
+    public Database getDatabase(){
         return database;
     }
 }

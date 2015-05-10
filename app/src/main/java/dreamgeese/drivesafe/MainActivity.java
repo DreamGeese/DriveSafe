@@ -27,8 +27,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         CouchDBManager=new CouchDBManager(this);
+        UserSettings UserSettings=new UserSettings(CouchDBManager.getDatabase());
+
 
         //creates a service that talks with the nod ring
         VolumeController VolumeController=new VolumeController(this);
