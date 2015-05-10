@@ -6,4 +6,16 @@
     <string name="connection_status">Disconnected</string>
     <string name="detected_gesture_header">Detected Gesture:</string>
     <string name="detected_gesture">N/A</string>
+
+    <string-array name="gesture_events">
+        <item>SWIPE_UP</item>
+        <item>SWIPE_DOWN</item>
+        <item>SWIPE_LEFT</item>
+        <item>SWIPE_RIGHT</item>
+        <item>CLOCKWISE_ROTATION</item>
+        <item>COUNTERCLOCKWISE_ROTATION</item>
+        <item>TACTILE0_UP</item>
+        <item>TACTILE1_UP</item>
+        <item>TOUCH2_UP</item>
+    </string-array>
 </resources>

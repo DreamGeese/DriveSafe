@@ -3,4 +3,253 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phonenumber"
+        android:layout_gravity="center_horizontal"
+        android:hint="Please enter a phone number" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Resume Music"
+            android:id="@+id/play_music_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/play_music_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/play_music_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Pause Music"
+            android:id="@+id/pause_music_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/pause_music_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/pause_music_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Raise Volume"
+            android:id="@+id/raise_volume_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/raise_volume_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/raise_volume_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Lower Volume"
+            android:id="@+id/lower_volume_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/lower_volume_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/lower_volume_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Next Song"
+            android:id="@+id/next_song_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/next_song_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/next_song_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Previous Song"
+            android:id="@+id/previous_song_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/previous_song_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/previous_song_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Accept Call"
+            android:id="@+id/accept_call_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/accept_call_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/accept_call_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Reject Call"
+            android:id="@+id/reject_call_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/reject_call_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/reject_call_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Call Number"
+            android:id="@+id/take_call_header"
+            android:layout_weight="2"
+            android:autoText="false"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/take_call_event"
+            android:layout_weight="1"
+            android:layout_alignTop="@+id/take_call_header"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp" />
+    </RelativeLayout>
+
+
 </LinearLayout>
