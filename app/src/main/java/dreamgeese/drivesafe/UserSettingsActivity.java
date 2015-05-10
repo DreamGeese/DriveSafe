@@ -38,5 +38,45 @@ public class UserSettingsActivity extends Activity {
         accept_call_event.setAdapter(adapter);
         reject_call_event.setAdapter(adapter);
         take_call_event.setAdapter(adapter);
+
+        ArrayAdapter play_music_event_adapter = (ArrayAdapter) play_music_event.getAdapter();
+        ArrayAdapter pause_music_event_adapter = (ArrayAdapter) pause_music_event.getAdapter();
+        ArrayAdapter raise_volume_event_adapter = (ArrayAdapter) raise_volume_event.getAdapter();
+        ArrayAdapter lower_volume_event_adapter = (ArrayAdapter) lower_volume_event.getAdapter();
+        ArrayAdapter next_song_event_adapter = (ArrayAdapter) next_song_event.getAdapter();
+        ArrayAdapter previous_song_event_adapter = (ArrayAdapter) previous_song_event.getAdapter();
+        ArrayAdapter accept_call_event_adapter = (ArrayAdapter) accept_call_event.getAdapter();
+        ArrayAdapter reject_call_event_adapter = (ArrayAdapter) reject_call_event.getAdapter();
+        ArrayAdapter take_call_event_adapter = (ArrayAdapter) take_call_event.getAdapter();
+
+        int spinnerPosition = play_music_event_adapter.getPosition(UserSettings.playMusic);
+        play_music_event.setSelection(spinnerPosition);//set the default according to value
+
+        spinnerPosition = pause_music_event_adapter.getPosition(UserSettings.pauseMusic);
+        pause_music_event.setSelection(spinnerPosition);
+
+        spinnerPosition = raise_volume_event_adapter.getPosition(UserSettings.raiseVolume);
+        raise_volume_event.setSelection(spinnerPosition);
+
+        spinnerPosition = lower_volume_event_adapter.getPosition(UserSettings.lowerVolume);
+        lower_volume_event.setSelection(spinnerPosition);
+
+        spinnerPosition = next_song_event_adapter.getPosition(UserSettings.nextSong);
+        next_song_event.setSelection(spinnerPosition);
+
+        spinnerPosition = previous_song_event_adapter.getPosition(UserSettings.previousSong);
+        previous_song_event.setSelection(spinnerPosition);
+
+        spinnerPosition = accept_call_event_adapter.getPosition(UserSettings.acceptCall);
+        accept_call_event.setSelection(spinnerPosition);
+
+        spinnerPosition = reject_call_event_adapter.getPosition(UserSettings.rejectCall);
+        reject_call_event.setSelection(spinnerPosition);
+
+        spinnerPosition = take_call_event_adapter.getPosition(UserSettings.callNumber);
+        take_call_event.setSelection(spinnerPosition);
+
+
+
     }
 }
