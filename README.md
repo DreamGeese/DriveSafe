@@ -4,8 +4,7 @@
 Use your hand gestures to accurately control the music on your phone, while keeping your eyes on the road.
 
 
-![alt text](https://github.com/DreamGeese/DriveSafe/blob/master/screenshots/homescreen-smaller.png "Home Page")
-![alt text](https://github.com/DreamGeese/DriveSafe/blob/master/screenshots/settingspannel-smaller.png "Home Page")
+![alt text](https://github.com/DreamGeese/DriveSafe/blob/master/screenshots/ScreenshotsTogether25.png "Home Page")
 
 #Features
 - [x] Customizable gestures and controls
