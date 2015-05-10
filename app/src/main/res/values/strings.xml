@@ -4,7 +4,6 @@
     <string name="welcome_header">Welcome</string>
     <string name="connection_status_header">Connection Status</string>
     <string name="connection_status">Disconnected</string>
-    <string name="connection_button">Connect</string>
     <string name="detected_gesture_header">Detected Gesture:</string>
     <string name="detected_gesture">N/A</string>
 </resources>

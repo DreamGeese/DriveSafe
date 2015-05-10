@@ -24,11 +24,11 @@ public class OpenSpatialController {
     private CallController callController;
     private Activity currentActivity;
 
-
     public OpenSpatialController(final Activity currActivity,VolumeController volumeCtrl,CallController callCtrl){
         currentActivity=currActivity;
         volumeController=volumeCtrl;
         callController=callCtrl;
+
 
         //Creates a background service that listens for events in the nod ring
           mOpenSpatialServiceConnection = new ServiceConnection() {
@@ -63,9 +63,10 @@ public class OpenSpatialController {
                             });
                             ViewController.setDisplayConnected(currActivity);
 
+
                         } catch (OpenSpatialException e) {
                             Log.e(NAME, "Could Not Register for Gesture Events" + e);
-                            ViewController.setDisplayDisconnected(currActivity);
+                            ViewController.setDisplayDisconnected(currActivity);;
                         }
                     }
 
@@ -76,7 +77,7 @@ public class OpenSpatialController {
 
                     @Override
                     public void deviceDisconnected(BluetoothDevice bluetoothDevice) {
-
+                        ViewController.setDisplayDisconnected(currActivity);
                     }
 
                     @Override
