@@ -2,6 +2,7 @@ package dreamgeese.drivesafe;
 
 import android.app.Activity;
 
+import android.location.SettingInjectorService;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -83,7 +84,14 @@ public class UserSettingsActivity extends Activity {
         spinnerPosition = take_call_event_adapter.getPosition(UserSettings.callNumber);
         take_call_event.setSelection(spinnerPosition);
 
-
-
+        SettingsChange play_music_event_change=new SettingsChange(play_music_event,"play_music");
+        SettingsChange pause_music_event_change=new SettingsChange(pause_music_event,"pause_music");
+        SettingsChange raise_volume_event_change=new SettingsChange(raise_volume_event,"raise_volume");
+        SettingsChange lower_volume_event_change=new SettingsChange(lower_volume_event,"lower_volume");
+        SettingsChange next_song_event_change=new SettingsChange(next_song_event,"next_song");
+        SettingsChange previous_song_event_change=new SettingsChange(previous_song_event,"previous_song");
+        SettingsChange accept_call_event_change=new SettingsChange(accept_call_event,"accept_call");
+        SettingsChange reject_call_event_change=new SettingsChange(reject_call_event,"reject_call");
+        SettingsChange take_call_event_change=new SettingsChange(take_call_event,"take_call");
     }
 }
