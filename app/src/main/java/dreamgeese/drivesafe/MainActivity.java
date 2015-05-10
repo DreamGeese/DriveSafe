@@ -17,19 +17,14 @@ import net.openspatial.OpenSpatialService;
 
 public class MainActivity extends Activity {
     OpenSpatialController OpenSpatialController;
-    CouchDBManager CouchDBManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CouchDBManager=new CouchDBManager(this);
-        UserSettings UserSettings=new UserSettings(CouchDBManager.getDatabase());
-
-
         //creates a service that talks with the nod ring
         VolumeController VolumeController=new VolumeController(this);
-        CallController CallController =new CallController(this);
+        CallController CallController =new CallController(this,"5195800179");
         OpenSpatialController=new OpenSpatialController(this,VolumeController,CallController); //manages the connection to the nod ring
 
         bindService(new Intent(this, OpenSpatialService.class), OpenSpatialController.getServiceConnection(), BIND_AUTO_CREATE);
@@ -61,8 +56,7 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, UserSettingsActivity.class);
-            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
