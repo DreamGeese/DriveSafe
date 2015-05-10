@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
 
         //creates a service that talks with the nod ring
         VolumeController VolumeController=new VolumeController(this);
-        CallController CallController =new CallController(this,"5195800179");
+        CallController CallController =new CallController(this);
         OpenSpatialController=new OpenSpatialController(this,VolumeController,CallController); //manages the connection to the nod ring
 
         bindService(new Intent(this, OpenSpatialService.class), OpenSpatialController.getServiceConnection(), BIND_AUTO_CREATE);

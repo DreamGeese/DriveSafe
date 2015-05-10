@@ -13,24 +13,13 @@ import java.lang.reflect.Method;
 
 public class CallController {
     Activity currentActivity;
-    private String emergencyDialNumber;
     private long timeSinceCall=0;
     private long timeSinceCallTimeout=2000;//in milliseconds
 
     public CallController(Activity currActivity){
         currentActivity=currActivity;
     }
-    public CallController(Activity currActivity,String phonenumber){
-        currentActivity=currActivity;
-        emergencyDialNumber=phonenumber;
-    }
 
-    public void setNumber(String newNumber){
-        emergencyDialNumber=newNumber;
-    }
-    public String getNumber(){
-        return emergencyDialNumber;
-    }
     public void acceptCall (final Activity currentActivity) {
         new Thread(new Runnable() {
 
@@ -90,10 +79,10 @@ public class CallController {
     }
 
     public void callNumber (Activity currActivity) {
-        if(emergencyDialNumber!=null){
+        if(UserSettings.telephoneNumber!=null){
             if(System.currentTimeMillis()-timeSinceCall>=timeSinceCallTimeout) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + emergencyDialNumber));
+                callIntent.setData(Uri.parse("tel:" + UserSettings.telephoneNumber));
                 currActivity.startActivity(callIntent);
                 timeSinceCall=System.currentTimeMillis();
                 Log.e("Afewewf", "calling callnumber mehtod");

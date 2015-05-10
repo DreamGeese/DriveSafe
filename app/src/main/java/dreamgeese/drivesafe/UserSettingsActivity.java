@@ -94,4 +94,14 @@ public class UserSettingsActivity extends Activity {
         SettingsChange reject_call_event_change=new SettingsChange(reject_call_event,"reject_call");
         SettingsChange take_call_event_change=new SettingsChange(take_call_event,"take_call");
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EditText phone_number_field = (EditText) findViewById(R.id.phone_number_field);
+        if(!phone_number_field.getText().equals("")){//if not an empty phone
+            UserSettings.telephoneNumber=phone_number_field.getText().toString();
+            UserSettings.changeSettingDB("telephoneNumber",phone_number_field.getText().toString());
+        }
+    }
 }
