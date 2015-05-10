@@ -109,33 +109,62 @@ public class OpenSpatialController {
         //outputs the result to the activity so the user can see what gesture he/she is making
         ViewController.showDetectedGestures(currentActivity,gEvent);
 
-        if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_UP){ //for some reason a swipe down is recognized as a swipe app
+        String gesture=gEvent.gestureEventType.toString();
+        if(gesture.equals(UserSettings.raiseVolume)){ //for some reason a swipe down is recognized as a swipe app
             volumeController.raiseVolume();
         }
-        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_DOWN){
+        else if(gesture.equals(UserSettings.lowerVolume)){
             volumeController.lowerVolume();
         }
-        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.CLOCKWISE_ROTATION){
+        else if(gesture.equals(UserSettings.playMusic)){
                 volumeController.playMusic();
         }
-        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.COUNTERCLOCKWISE_ROTATION){
+        else if(gesture.equals(UserSettings.pauseMusic)){
                 volumeController.pauseMusic();
         }
-        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_RIGHT){
+        else if(gesture.equals(UserSettings.nextSong)){
             volumeController.nextSong();
         }
-        else if(gEvent.gestureEventType==GestureEvent.GestureEventType.SWIPE_LEFT){
+        else if(gesture.equals(UserSettings.previousSong)){
             volumeController.previousSong();
+        }
+        else if(gesture.equals(UserSettings.acceptCall)){
+            callController.acceptCall(currentActivity);
+        }
+        else if(gesture.equals(UserSettings.rejectCall)){
+            callController.rejectCall();
+        }
+        else if(gesture.equals(UserSettings.callNumber)){
+            callController.callNumber(currentActivity);
         }
     }
     public void handleTouchEvent(ButtonEvent bEvent){
-        if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TOUCH2_UP){
+        String button=bEvent.buttonEventType.toString();
+        if(button.equals(UserSettings.raiseVolume)){ //for some reason a swipe down is recognized as a swipe app
+            volumeController.raiseVolume();
+        }
+        else if(button.equals(UserSettings.lowerVolume)){
+            volumeController.lowerVolume();
+        }
+        else if(button.equals(UserSettings.playMusic)){
+            volumeController.playMusic();
+        }
+        else if(button.equals(UserSettings.pauseMusic)){
+            volumeController.pauseMusic();
+        }
+        else if(button.equals(UserSettings.nextSong)){
+            volumeController.nextSong();
+        }
+        else if(button.equals(UserSettings.previousSong)){
+            volumeController.previousSong();
+        }
+        else if(button.equals(UserSettings.acceptCall)){
             callController.acceptCall(currentActivity);
         }
-        if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TACTILE0_UP){
+        else if(button.equals(UserSettings.rejectCall)){
             callController.rejectCall();
         }
-        if(bEvent.buttonEventType== ButtonEvent.ButtonEventType.TACTILE1_UP){
+        else if(button.equals(UserSettings.callNumber)){
             callController.callNumber(currentActivity);
         }
     }

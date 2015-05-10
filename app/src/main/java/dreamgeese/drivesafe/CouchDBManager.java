@@ -39,4 +39,8 @@ public class CouchDBManager {
             return;
         }
     }
+
+    private Database getDatabase(){
+        return database;
+    }
 }
