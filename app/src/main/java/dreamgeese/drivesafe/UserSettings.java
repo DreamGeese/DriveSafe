@@ -34,6 +34,7 @@ public class UserSettings {
 
             if(result.getCount()==0){ //if the database is empty (first launch of app)
                 Map<String, Object> properties = new HashMap<String, Object>();
+                properties.put("telephoneNumber", null);
                 properties.put("playMusic", "CLOCKWISE_ROTATION");
                 properties.put("pauseMusic", "COUNTERCLOCKWISE_ROTATION");
                 properties.put("callNumber", "TACTILE1_UP");
@@ -46,13 +47,25 @@ public class UserSettings {
 
                 Document document = database.createDocument();
                 document.putProperties(properties);
-                Log.d("dvdsvds",document.getProperties().toString());
+                Log.d("QUERY", document.getProperties().toString());
             }
             else{
                 for (Iterator<QueryRow> it = result; it.hasNext(); ) {
                     QueryRow row = it.next();
-                    Map<String, Object> document=row.getDocumentProperties();
-                    Log.e("QUERY",document.toString());
+                    if(row.getDocument().getProperty("playMusic")!=null){ //if it is the correct document that contains all the user settings
+                        if(row.getDocument().getProperty("telephoneNumber")!=null){
+                            telephoneNumber=row.getDocument().getProperty("telephoneNumber").toString();
+                        }
+                        playMusic=row.getDocument().getProperty("playMusic").toString();
+                        pauseMusic=row.getDocument().getProperty("pauseMusic").toString();
+                        callNumber=row.getDocument().getProperty("callNumber").toString();
+                        acceptCall=row.getDocument().getProperty("acceptCall").toString();
+                        rejectCall=row.getDocument().getProperty("rejectCall").toString();
+                        raiseVolume=row.getDocument().getProperty("raiseVolume").toString();
+                        lowerVolume=row.getDocument().getProperty("lowerVolume").toString();
+                        nextSong=row.getDocument().getProperty("nextSong").toString();
+                        previousSong=row.getDocument().getProperty("previousSong").toString();
+                    }
                 }
             }
         }catch(Exception e){
