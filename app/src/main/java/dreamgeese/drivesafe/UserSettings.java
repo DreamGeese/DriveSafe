@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class UserSettings {
+    public static Database database;
     public static String telephoneNumber=null;
     public static String playMusic="CLOCKWISE_ROTATION";
     public static String pauseMusic="COUNTERCLOCKWISE_ROTATION";
@@ -25,7 +26,8 @@ public class UserSettings {
     public static String nextSong="SWIPE_RIGHT";
     public static String previousSong="SWIPE_LEFT";
 
-    public UserSettings(Database database){
+    public UserSettings(Database db){
+        database=db;
         // Let's find the documents that have conflicts so we can resolve them:
         Query query = database.createAllDocumentsQuery();
 
@@ -72,5 +74,29 @@ public class UserSettings {
             Log.e("QUERY","Could not query the database. Using the default values");
         }
 
+    }
+
+    public static void changeSettingDB(String setting,String value){
+        Query query = database.createAllDocumentsQuery();
+        try{
+            QueryEnumerator result = query.run();
+
+                for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+                    QueryRow row = it.next();
+                    if(row.getDocument().getProperty("playMusic")!=null){ //if it is the correct document that contains all the user settings
+                        Document doc = database.getDocument(row.getDocument().getId());
+                        Map<String, Object> properties = new HashMap<String, Object>();
+                        properties.putAll(doc.getProperties());
+                        properties.put(setting, value);
+                        try {
+                            doc.putProperties(properties);
+                        } catch (CouchbaseLiteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        }catch(Exception e){
+            Log.e("QUERY","Could not change value in db");
+        }
     }
 }
