@@ -13,6 +13,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.couchbase.lite.*;
+import com.couchbase.lite.android.AndroidContext;
+import com.couchbase.lite.util.Log;
+
 import net.openspatial.OpenSpatialService;
 
 public class MainActivity extends Activity {
@@ -32,6 +36,7 @@ public class MainActivity extends Activity {
         //for bluetooth connection stuff
         BluetoothController mBluetoothController=new BluetoothController();
         mBluetoothController.checkBluetoothStatus(this); //informs the user if their bluetooth is turned off
+
     }
 
     @Override

@@ -63,7 +63,6 @@ public class OpenSpatialController {
                             });
                             ViewController.setDisplayConnected(currActivity);
 
-
                         } catch (OpenSpatialException e) {
                             Log.e(NAME, "Could Not Register for Gesture Events" + e);
                             ViewController.setDisplayDisconnected(currActivity);;

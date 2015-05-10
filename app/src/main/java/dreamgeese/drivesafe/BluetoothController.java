@@ -3,6 +3,7 @@ package dreamgeese.drivesafe;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.view.View;
 
 public class BluetoothController {
     private BluetoothAdapter mBluetoothAdapter;
@@ -15,6 +16,7 @@ public class BluetoothController {
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
+            ViewController.setDisplayDisconnected(CurrentActivity);
         }
         else if (!mBluetoothAdapter.isEnabled()){
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
