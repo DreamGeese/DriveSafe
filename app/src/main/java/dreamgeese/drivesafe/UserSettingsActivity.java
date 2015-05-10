@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class UserSettingsActivity extends Activity {
@@ -12,6 +13,12 @@ public class UserSettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_settings);
+
+        //displays the current value of the phone number field
+        if(UserSettings.telephoneNumber!=null){
+            EditText phone_number_field = (EditText) findViewById(R.id.phone_number_field);
+            phone_number_field.setText(UserSettings.telephoneNumber);
+        }
 
         Spinner play_music_event = (Spinner) findViewById(R.id.play_music_event);
         Spinner pause_music_event = (Spinner) findViewById(R.id.pause_music_event);
