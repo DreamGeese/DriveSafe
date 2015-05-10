@@ -21,11 +21,15 @@ import net.openspatial.OpenSpatialService;
 
 public class MainActivity extends Activity {
     OpenSpatialController OpenSpatialController;
+    CouchDBManager CouchDBManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        CouchDBManager=new CouchDBManager(this);
+
         //creates a service that talks with the nod ring
         VolumeController VolumeController=new VolumeController(this);
         CallController CallController =new CallController(this,"5195800179");
