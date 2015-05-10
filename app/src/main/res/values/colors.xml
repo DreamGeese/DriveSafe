@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#912828</color>
-    <color name="primary_dark">#912828</color>
-    <color name="accent">#912828</color>
+    <color name="primary">#2a8eb2</color>
+    <color name="primary_dark">#2a8eb2</color>
+    <color name="accent">#2a8eb2</color>
     <color name="background">#e0e0e0</color>
+    <color name="fontlight">#a3a3a3</color>
+    <color name="fontdark">#898989</color>
+    <color name="connect_success">#27a32d</color>
+    <color name="connect_failure">#e51212</color>
+
+
 </resources>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DriveSafe</string>
     <string name="action_settings">Settings</string>
-    <string name="welcome_header">Welcome</string>
+    <string name="welcome_header">DriveSafe</string>
     <string name="connection_status_header">Connection Status</string>
     <string name="connection_status">Disconnected</string>
     <string name="detected_gesture_header">Detected Gesture:</string>
